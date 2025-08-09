@@ -6,43 +6,75 @@
   <title>Luggage Share</title>
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Luggage Share">
   <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
   <style>
-    :root { --brand:#844662; }
-    body { margin:0; font-family: system-ui, -apple-system, Arial; background:#fafafa; }
-    header { padding: 16px; text-align:center; font-weight:700; background:var(--brand); color:#fff; }
-    .hero { padding:18px; background:#fff; margin:12px; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,.05); }
-    .hero h2 { margin:0 0 8px 0; color:var(--brand); }
+    :root { --brand:#7D2A45; --ink:#111; --muted:#666; }
+    * { box-sizing:border-box }
+    body { margin:0; font-family: system-ui, -apple-system, Arial; background:#fafafa; color:var(--ink); }
+    header { padding: 14px; text-align:center; font-weight:700; background:var(--brand); color:#fff; }
+    main { padding:16px 16px 92px; }
     nav { position:fixed; bottom:0; left:0; right:0; display:flex; border-top:1px solid #eee; background:#fff; }
     nav button { flex:1; padding:12px; font-size:14px; background:#fff; border:0; }
-    main { padding:16px 16px 88px; }
-    label { display:block; margin:8px 0 4px; font-size:14px; }
-    input, select { width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; background:#fff; }
     .btn { width:100%; padding:12px; border:0; border-radius:10px; margin-top:12px; font-weight:600; background:var(--brand); color:#fff; }
-    .card { border:1px solid #eee; border-radius:10px; padding:12px; margin:8px 0; background:#fff; }
-    .pill { display:inline-block; background:#f1f1f1; padding:4px 8px; border-radius:999px; font-size:12px; margin-right:6px; }
-    .muted { color:#666; font-size:12px; }
+    .btn-link { background:transparent; border:0; color:var(--brand); padding:0; }
+    .card { border:1px solid #eee; border-radius:12px; padding:14px; margin:10px 0; background:#fff; }
+    label { display:block; margin:8px 0 4px; font-size:14px; }
+    input { width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; background:#fff; }
+    .row { display:flex; gap:10px }
+    .row > * { flex:1 }
+    .muted { color:var(--muted); font-size:12px; }
+
+    #splash {
+      position:fixed; inset:0; background:#0008; display:flex; align-items:center; justify-content:center;
+      z-index:9999; opacity:0; pointer-events:none; transition:opacity .3s ease;
+    }
+    #splash.show { opacity:1; pointer-events:auto; }
+    .splash-box {
+      width:280px; background:#fff; border-radius:18px; padding:22px; text-align:center;
+      animation: pop .35s ease-out;
+    }
+    .splash-logo {
+      width:96px; height:96px; border-radius:22px; display:block; margin:0 auto 10px auto;
+      background:var(--brand) url('icons/logo.png') center/70% no-repeat;
+    }
+    @keyframes pop { from{transform:scale(.9);opacity:.5} to{transform:scale(1);opacity:1} }
+
+    .brand-chip { display:flex; align-items:center; gap:10px; margin-bottom:12px }
+    .brand-chip img { width:28px; height:28px; border-radius:6px }
   </style>
 </head>
 <body>
   <header>Luggage Share</header>
-  <div class="hero">
-    <h2>Welcome 👋</h2>
-    <p>Add your first offer/request. Your data stays on this device (demo).</p>
-    <button class="btn" onclick="route('create')">Create Offer/Request</button>
+
+  <div id="splash">
+    <div class="splash-box">
+      <div class="splash-logo"></div>
+      <div style="font-weight:700; margin:6px 0 2px">Luggage Share</div>
+      <div class="muted">Matching extra baggage capacity between travelers</div>
+      <button id="splashClose" class="btn" style="margin-top:12px">Continue</button>
+    </div>
   </div>
+
   <main id="app"></main>
+
   <nav>
-    <button onclick="route('create')">Create</button>
     <button onclick="route('offers')">Offers</button>
+    <button onclick="route('create')">Create</button>
     <button onclick="route('wallet')">Wallet</button>
     <button onclick="route('agreement')">Agreement</button>
+    <button onclick="route('login')" id="loginTab">Login</button>
   </nav>
+
   <script src="app.js"></script>
   <script>
     if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js'); }
+    const splash = document.getElementById('splash');
+    const seen = localStorage.getItem('splashSeen');
+    if(!seen){ splash.classList.add('show'); }
+    document.getElementById('splashClose').onclick = () => {
+      localStorage.setItem('splashSeen','1'); splash.classList.remove('show');
+    };
   </script>
 </body>
 </html>
