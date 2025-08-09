@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Luggage Share</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Luggage Share">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <style>
+    body { margin:0; font-family: system-ui, -apple-system, Arial; }
+    header { padding: 14px; text-align:center; font-weight:600; border-bottom:1px solid #eee; }
+    nav { position:fixed; bottom:0; left:0; right:0; display:flex; border-top:1px solid #eee; }
+    nav button { flex:1; padding:12px; font-size:14px; background:#fff; border:0; }
+    main { padding:16px 16px 72px; }
+    label { display:block; margin:8px 0 4px; font-size:14px; }
+    input, select { width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; }
+    .btn { width:100%; padding:12px; border:0; border-radius:10px; margin-top:12px; font-weight:600; background:#4A148C; color:#fff; }
+    .card { border:1px solid #eee; border-radius:10px; padding:12px; margin:8px 0; }
+    #alert { background:#fff8e1; border:1px solid #ffe082; padding:10px; border-radius:10px; margin:8px 0 0; font-size:13px; }
+  </style>
+</head>
+<body>
+  <header>Luggage Share (PWA)</header>
+  <main id="app"></main>
+  <nav>
+    <button onclick="route('create')">Create</button>
+    <button onclick="route('offers')">Offers</button>
+    <button onclick="route('wallet')">Wallet</button>
+    <button onclick="route('agreement')">Agreement</button>
+  </nav>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
+    }
+  </script>
+</body>
+</html>
