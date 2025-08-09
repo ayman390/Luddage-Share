@@ -8,22 +8,31 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Luggage Share">
-  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
   <style>
-    body { margin:0; font-family: system-ui, -apple-system, Arial; }
-    header { padding: 14px; text-align:center; font-weight:600; border-bottom:1px solid #eee; }
-    nav { position:fixed; bottom:0; left:0; right:0; display:flex; border-top:1px solid #eee; }
+    :root { --brand:#844662; }
+    body { margin:0; font-family: system-ui, -apple-system, Arial; background:#fafafa; }
+    header { padding: 16px; text-align:center; font-weight:700; background:var(--brand); color:#fff; }
+    .hero { padding:18px; background:#fff; margin:12px; border-radius:12px; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+    .hero h2 { margin:0 0 8px 0; color:var(--brand); }
+    nav { position:fixed; bottom:0; left:0; right:0; display:flex; border-top:1px solid #eee; background:#fff; }
     nav button { flex:1; padding:12px; font-size:14px; background:#fff; border:0; }
-    main { padding:16px 16px 72px; }
+    main { padding:16px 16px 88px; }
     label { display:block; margin:8px 0 4px; font-size:14px; }
-    input, select { width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; }
-    .btn { width:100%; padding:12px; border:0; border-radius:10px; margin-top:12px; font-weight:600; background:#4A148C; color:#fff; }
-    .card { border:1px solid #eee; border-radius:10px; padding:12px; margin:8px 0; }
-    #alert { background:#fff8e1; border:1px solid #ffe082; padding:10px; border-radius:10px; margin:8px 0 0; font-size:13px; }
+    input, select { width:100%; padding:10px; border:1px solid #ccc; border-radius:8px; background:#fff; }
+    .btn { width:100%; padding:12px; border:0; border-radius:10px; margin-top:12px; font-weight:600; background:var(--brand); color:#fff; }
+    .card { border:1px solid #eee; border-radius:10px; padding:12px; margin:8px 0; background:#fff; }
+    .pill { display:inline-block; background:#f1f1f1; padding:4px 8px; border-radius:999px; font-size:12px; margin-right:6px; }
+    .muted { color:#666; font-size:12px; }
   </style>
 </head>
 <body>
-  <header>Luggage Share (PWA)</header>
+  <header>Luggage Share</header>
+  <div class="hero">
+    <h2>Welcome 👋</h2>
+    <p>Add your first offer/request. Your data stays on this device (demo).</p>
+    <button class="btn" onclick="route('create')">Create Offer/Request</button>
+  </div>
   <main id="app"></main>
   <nav>
     <button onclick="route('create')">Create</button>
@@ -33,9 +42,7 @@
   </nav>
   <script src="app.js"></script>
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js');
-    }
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js'); }
   </script>
 </body>
 </html>
